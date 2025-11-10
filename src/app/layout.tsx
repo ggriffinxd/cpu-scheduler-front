@@ -23,9 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={routing.defaultLocale} suppressHydrationWarning>
-      <body
-        className={`${outfit.variable} antialiased  md:overflow-hidden overflow-auto`}
-      >
+      <body className={`${outfit.variable} antialiased overflow-auto`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
