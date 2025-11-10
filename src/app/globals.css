@@ -6,6 +6,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-background-primary: var(--background-primary);
+  --color-everwhite: var(--everwhite);
+  --color-everblack: var(--everblack);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -48,6 +51,8 @@
   /* Light Theme - Cores suaves com toque de azul/lavanda */
   --background: oklch(0.98 0.005 264); /* Azul muito claro quase branco */
   --foreground: oklch(0.2 0.02 264); /* Azul escuro */
+  --everwhite: oklch(0.98 0 0);
+  --everblack: oklch(0.2 0.02 264);
   --card: oklch(1 0 0); /* Branco puro para cards */
   --card-foreground: oklch(0.2 0.02 264);
   --popover: oklch(1 0 0);
@@ -77,11 +82,14 @@
   --sidebar-accent-foreground: oklch(0.2 0.02 264);
   --sidebar-border: oklch(0.88 0.02 264);
   --sidebar-ring: oklch(0.55 0.22 264);
+  --background-primary: #7539db;
 }
 
 .dark {
   --background: oklch(0.15 0.03 264); /* Azul muito escuro */
   --foreground: oklch(0.95 0.01 264); /* Azul muito claro */
+  --everwhite: oklch(0.98 0 0);
+  --everblack: oklch(0.2 0.02 264);
   --card: oklch(0.2 0.03 264); /* Azul escuro para cards */
   --card-foreground: oklch(0.95 0.01 264);
   --popover: oklch(0.2 0.03 264);
@@ -111,6 +119,7 @@
   --sidebar-accent-foreground: oklch(0.95 0.01 264);
   --sidebar-border: oklch(0.3 0.04 264);
   --sidebar-ring: oklch(0.65 0.22 280);
+  --background-primary: #2f2044;
 }
 
 @layer base {

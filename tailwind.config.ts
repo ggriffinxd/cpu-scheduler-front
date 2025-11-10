@@ -8,7 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // You can add custom extensions here if needed
+      colors: {
+        "background-primary": "var(--background-primary)",
+        everwhite: "var(--everwhite)",
+        everblack: "var(--everblack)",
+      },
     },
   },
   plugins: [],
