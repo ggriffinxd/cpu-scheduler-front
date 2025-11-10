@@ -1,49 +1,47 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+
 import { useTheme } from "next-themes";
-import * as React from "react";
+import { useEffect, useState } from "react";
+
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
     return (
-      <button
-        type="button"
-        className="relative inline-flex h-11 w-20 items-center rounded-full bg-muted transition-colors"
-        aria-label="Toggle theme"
-      >
+      <div className="flex h-11 w-20 items-center justify-center rounded-full bg-muted transition-colors">
         <span className="sr-only">Carregando tema...</span>
-      </button>
+      </div>
     );
   }
 
   const isDark = theme === "dark";
 
   return (
-    <button
-      type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="relative inline-flex h-11 w-20 items-center rounded-full bg-gradient-to-r from-primary/20 to-accent/20 transition-all duration-300 hover:from-primary/30 hover:to-accent/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-      aria-label={isDark ? "Mudar para tema claro" : "Mudar para tema escuro"}
-    >
-      <span
-        className={`inline-flex h-9 w-9 items-center justify-center rounded-full bg-card shadow-lg transition-all duration-300 ${
-          isDark ? "translate-x-10" : "translate-x-1"
-        }`}
-      >
-        {isDark ? (
-          <Moon className="h-5 w-5 text-primary" />
-        ) : (
-          <Sun className="h-5 w-5 text-primary" />
+    <div className="flex items-center space-x-2 text-everwhite">
+      <Sun className="h-4 w-4" />
+      <Switch
+        checked={isDark}
+        onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+        className={cn(
+          "data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-primary/30 data-[state=checked]:to-accent/30",
+          "data-[state=unchecked]:bg-gradient-to-r data-[state=unchecked]:from-primary/20 data-[state=unchecked]:to-accent/20",
+          "hover:data-[state=checked]:from-primary/40 hover:data-[state=checked]:to-accent/40",
+          "hover:data-[state=unchecked]:from-primary/30 hover:data-[state=unchecked]:to-accent/30",
+          "transition-all duration-300"
         )}
-      </span>
-    </button>
+        aria-label={isDark ? "Mudar para tema claro" : "Mudar para tema escuro"}
+      />
+      <Moon className="h-4 w-4" />
+    </div>
   );
 }
