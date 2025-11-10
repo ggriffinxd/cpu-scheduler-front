@@ -1,7 +1,9 @@
+import { NextIntlClientProvider } from "next-intl";
+
 export default function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <NextIntlClientProvider>{children}</NextIntlClientProvider>;
 }
