@@ -1,1 +1,7 @@
-{}
+{
+  "dashboard": {
+    "header": {
+      "title": "Dashboard"
+    }
+  }
+}
