@@ -39,11 +39,11 @@ export function LanguageToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger
         key={currentLocale}
-        className="flex h-8 w-20 items-center justify-center rounded-md border-2 border-everwhite gap-2 cursor-pointer bg-transparent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        className="flex h-8 w-20 items-center justify-center gap-2 rounded-md border border-border bg-background/80 text-foreground transition-all duration-300 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         title=""
       >
         {languages.find((language) => language.code === currentLocale)?.flag}
-        <p className="text-xs text-everwhite">
+        <p className="text-xs font-semibold text-foreground">
           {languages
             .find((language) => language.code === currentLocale)
             ?.code.toUpperCase()}
@@ -59,11 +59,11 @@ export function LanguageToggle() {
             className="cursor-pointer"
           >
             <div
-              className="flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 text-foreground"
               title={language.name}
             >
               {language.flag}
-              <p className="text-sm text-everwhite">{language.name}</p>
+              <p className="text-sm">{language.name}</p>
             </div>
           </DropdownMenuItem>
         ))}
