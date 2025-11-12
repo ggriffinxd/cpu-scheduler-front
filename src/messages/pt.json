@@ -3,5 +3,136 @@
     "header": {
       "title": "Dashboard"
     }
+  },
+  "scheduler": {
+    "header": {
+      "title": "CPU Scheduler",
+      "subtitle": "Playground"
+    },
+    "page": {
+      "title": "CPU Scheduler Playground",
+      "description": "Visualize os principais algoritmos de escalonamento em tempo real. Monte sua fila de processos, configure quantum e acompanhe cada quantum sendo executado.",
+      "simulateHeading": "Simular {algorithm}",
+      "simulateDescription": "Os dados são processados imediatamente e o histórico é salvo para navegação temporal."
+    },
+    "status": {
+      "title": "Status da simulação",
+      "processing": "Processando...",
+      "idle": "Aguardando execução",
+      "lastRun": "Última execução registrou {steps} passos."
+    },
+    "sections": {
+      "algorithms": "Selecione um algoritmo",
+      "parameters": "Parâmetros da simulação",
+      "run": "Executar algoritmo"
+    },
+    "legend": {
+      "executing": "● Executando",
+      "ready": "● Pronto",
+      "finished": "● Finalizado"
+    },
+    "buttons": {
+      "simulate": "Executar simulação",
+      "simulateLoading": "Simulando..."
+    },
+    "errors": {
+      "noProcesses": "Adicione pelo menos um processo para iniciar a simulação.",
+      "invalidQuantum": "Informe um valor de quantum maior que zero para Round Robin.",
+      "unexpected": "Erro inesperado durante a simulação."
+    },
+    "helpers": {
+      "quickTipsTitle": "Dicas rápidas",
+      "quickTips": "Use o controle deslizante para navegar entre os passos executados e observar a evolução dos processos.|Experimente diferentes valores de quantum no Round Robin para ver como o tempo de espera e o número de passos são afetados.",
+      "aboutTitle": "Sobre esta simulação",
+      "aboutDescription": "Esta interface utiliza o motor de escalonamento portado diretamente do projeto em C open-source <link>PrjtCpuSch</link>, permitindo visualização em tempo real dos estados de cada processo.",
+      "linkUrl": "https://github.com/KarMiguel/PrjtCpuSch"
+    },
+    "controls": {
+      "quantum": "Quantum",
+      "quantumUnit": "q"
+    },
+    "algorithms": {
+      "requirementsLabel": "Entradas necessárias",
+      "fcfs": {
+        "title": "First-Come, First-Served (FCFS)",
+        "description": "Execução sequencial seguindo a ordem de chegada dos processos na fila.",
+        "hints": "Tempo de espera pode ser alto para processos longos.|Nenhuma preempção é realizada durante a execução.",
+        "requirements": "Lista de processos em ordem de chegada."
+      },
+      "rr": {
+        "title": "Round Robin",
+        "description": "Distribui a CPU em fatias de tempo fixas (quantum) alternando entre processos.",
+        "hints": "Ideal para sistemas time-sharing.|Processos retornam ao fim da fila caso não finalizem no quantum.",
+        "requirements": "Definir um valor de quantum (> 0)."
+      },
+      "priority": {
+        "title": "Fila de Prioridade",
+        "description": "Processos são distribuídos em filas por prioridade (1 = alta). Cada fila usa FCFS.",
+        "hints": "Processos de prioridade mais baixa aguardam filas superiores esvaziarem.|Útil para cenários com diferentes níveis de serviço.",
+        "requirements": "Prioridade de 1 a 5 para cada processo."
+      },
+      "sjf": {
+        "title": "Shortest Job First",
+        "description": "Seleciona o processo com menor tempo de CPU restante para execução completa.",
+        "hints": "Minimiza tempo médio de espera quando tempos são conhecidos.|Sem preempção (variante não-preemptiva).",
+        "requirements": "Tempo de CPU estimado para cada processo."
+      }
+    },
+    "processList": {
+      "title": "Processos de entrada",
+      "subtitle": "Informe o tempo de CPU necessário e a prioridade (1-5).",
+      "actions": {
+        "clear": "Limpar lista",
+        "seed": "Carregar exemplo"
+      },
+      "form": {
+        "cpuLabel": "Tempo de CPU (quantums)",
+        "priorityLabel": "Prioridade (1 = maior)",
+        "submit": "Adicionar processo"
+      },
+      "table": {
+        "id": "ID",
+        "cpu": "Tempo de CPU",
+        "priority": "Prioridade",
+        "actions": "Ações",
+        "empty": "Nenhum processo cadastrado.",
+        "remove": "Remover"
+      }
+    },
+    "timeline": {
+      "title": "Execução passo a passo",
+      "subtitle": "Acompanhe cada quantum executado e o estado atual de cada processo.",
+      "stepLabel": "Passo",
+      "controls": {
+        "first": "Início",
+        "previous": "Anterior",
+        "play": "Reproduzir",
+        "pause": "Pausar",
+        "next": "Próximo",
+        "last": "Fim",
+        "progress": "Progresso"
+      },
+      "range": {
+        "start": "Início",
+        "end": "Término"
+      },
+      "activeTitle": "Processo ativo por quantum",
+      "noExecution": "Sem execução",
+      "table": {
+        "process": "Processo",
+        "state": "Estado",
+        "cpuTotal": "CPU total",
+        "executed": "Executado",
+        "remaining": "Restante",
+        "progress": "Progresso"
+      },
+      "empty": "Execute uma simulação para visualizar os resultados.",
+      "states": {
+        "ready": "Pronto",
+        "running": "Executando",
+        "blocked": "Bloqueado",
+        "finished": "Finalizado"
+      }
+    }
   }
 }

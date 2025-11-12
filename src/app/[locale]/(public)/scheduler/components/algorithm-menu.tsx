@@ -16,12 +16,14 @@ interface AlgorithmMenuProps {
 	algorithms: AlgorithmOption[];
 	selected: SchedulerAlgorithmId;
 	onSelect: (algorithm: SchedulerAlgorithmId) => void;
+	requirementsLabel: string;
 }
 
 export function AlgorithmMenu({
 	algorithms,
 	selected,
 	onSelect,
+	requirementsLabel,
 }: AlgorithmMenuProps) {
 	return (
 		<div className="grid gap-4 sm:grid-cols-2">
@@ -68,7 +70,7 @@ export function AlgorithmMenu({
 						{algorithm.requirements?.length ? (
 							<div className="mt-4 rounded-lg border border-dashed border-border/50 bg-muted/30 p-3">
 								<p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-									Entradas necessárias
+									{requirementsLabel}
 								</p>
 								<ul className="mt-2 space-y-1 text-sm text-muted-foreground">
 									{algorithm.requirements.map((item) => (

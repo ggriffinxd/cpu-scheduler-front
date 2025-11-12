@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import type { ProcessSnapshot } from "@/lib/types/scheduler";
 
@@ -15,23 +16,11 @@ interface ExecutionTimelineProps {
 	onLast: () => void;
 }
 
-const stateStyles: Record<
-	ProcessSnapshot["estado"],
-	{ label: string; className: string }
-> = {
-	pronto: { label: "Pronto", className: "bg-amber-500/20 text-amber-500" },
-	executando: {
-		label: "Executando",
-		className: "bg-emerald-500/20 text-emerald-500",
-	},
-	bloqueado: {
-		label: "Bloqueado",
-		className: "bg-rose-500/20 text-rose-500",
-	},
-	finalizado: {
-		label: "Finalizado",
-		className: "bg-slate-500/20 text-slate-500",
-	},
+const stateClassMap: Record<ProcessSnapshot["estado"], string> = {
+	pronto: "bg-amber-500/20 text-amber-500",
+	executando: "bg-emerald-500/20 text-emerald-500",
+	bloqueado: "bg-rose-500/20 text-rose-500",
+	finalizado: "bg-slate-500/20 text-slate-500",
 };
 
 export function ExecutionTimeline({
@@ -45,6 +34,8 @@ export function ExecutionTimeline({
 	onFirst,
 	onLast,
 }: ExecutionTimelineProps) {
+	const t = useTranslations("scheduler.timeline");
+	const tControls = useTranslations("scheduler.controls");
 	const currentSnapshot = steps[currentStep] ?? [];
 
 	const timelineSummary = useMemo(() => {
@@ -63,20 +54,29 @@ export function ExecutionTimeline({
 			? Math.round(((currentStep + 1) / timelineSummary.totalSteps) * 100)
 			: 0;
 
+	const stateLabelMap: Record<ProcessSnapshot["estado"], string> = {
+		pronto: t("states.ready"),
+		executando: t("states.running"),
+		bloqueado: t("states.blocked"),
+		finalizado: t("states.finished"),
+	};
+
 	return (
 		<div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
 			<div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
 				<div>
 					<h2 className="text-lg font-semibold text-foreground">
-						Execução passo a passo
+						{t("title")}
 					</h2>
 					<p className="text-sm text-muted-foreground">
-						Acompanhe cada quantum executado e o estado atual de cada processo.
+						{t("subtitle")}
 					</p>
 				</div>
 				{steps.length > 0 ? (
 					<div className="flex items-center gap-3 rounded-full border border-border bg-muted/40 px-4 py-2 text-sm">
-						<span className="font-semibold text-muted-foreground">Passo</span>
+						<span className="font-semibold text-muted-foreground">
+							{t("stepLabel")}
+						</span>
 						<span className="rounded-full bg-primary/10 px-3 py-1 text-primary">
 							{currentStep + 1} / {steps.length}
 						</span>
@@ -93,39 +93,41 @@ export function ExecutionTimeline({
 								onClick={onFirst}
 								className="rounded-full border border-border px-3 py-1 text-xs font-semibold transition hover:bg-muted/60"
 							>
-								Início
+								{t("controls.first")}
 							</button>
 							<button
 								type="button"
 								onClick={onPrevious}
 								className="rounded-full border border-border px-3 py-1 text-xs font-semibold transition hover:bg-muted/60"
 							>
-								Anterior
+								{t("controls.previous")}
 							</button>
 							<button
 								type="button"
 								onClick={onTogglePlay}
 								className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary transition hover:bg-primary/15"
 							>
-								{isPlaying ? "Pausar" : "Reproduzir"}
+								{isPlaying ? t("controls.pause") : t("controls.play")}
 							</button>
 							<button
 								type="button"
 								onClick={onNext}
 								className="rounded-full border border-border px-3 py-1 text-xs font-semibold transition hover:bg-muted/60"
 							>
-								Próximo
+								{t("controls.next")}
 							</button>
 							<button
 								type="button"
 								onClick={onLast}
 								className="rounded-full border border-border px-3 py-1 text-xs font-semibold transition hover:bg-muted/60"
 							>
-								Fim
+								{t("controls.last")}
 							</button>
 						</div>
 						<div className="flex items-center gap-2 text-xs font-semibold">
-							<span className="text-muted-foreground">Progresso</span>
+							<span className="text-muted-foreground">
+								{t("controls.progress")}
+							</span>
 							<span className="rounded-full bg-primary/10 px-3 py-1 text-primary">
 								{progressPercent}%
 							</span>
@@ -145,8 +147,8 @@ export function ExecutionTimeline({
 						className="w-full accent-primary"
 					/>
 					<div className="mt-2 flex justify-between text-xs text-muted-foreground">
-						<span>Início</span>
-						<span>Término</span>
+						<span>{t("range.start")}</span>
+						<span>{t("range.end")}</span>
 					</div>
 				</div>
 			) : null}
@@ -154,7 +156,7 @@ export function ExecutionTimeline({
 			{timelineSummary.totalSteps > 0 ? (
 				<div className="mt-6 flex flex-col gap-3">
 					<h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-						Processo ativo por quantum
+						{t("activeTitle")}
 					</h3>
 					<div className="flex flex-wrap gap-2">
 						{timelineSummary.executandoPorPasso.map((processo, index) => (
@@ -167,7 +169,7 @@ export function ExecutionTimeline({
 								</span>
 								<span>→</span>
 								<span>
-									{processo ? `P${processo.id}` : "Sem execução"}
+									{processo ? `P${processo.id}` : t("noExecution")}
 								</span>
 							</div>
 						))}
@@ -179,12 +181,12 @@ export function ExecutionTimeline({
 				<table className="min-w-full divide-y divide-border text-sm">
 					<thead>
 						<tr className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
-							<th className="px-3 py-2 font-medium">Processo</th>
-							<th className="px-3 py-2 font-medium">Estado</th>
-							<th className="px-3 py-2 font-medium">CPU total</th>
-							<th className="px-3 py-2 font-medium">Executado</th>
-							<th className="px-3 py-2 font-medium">Restante</th>
-							<th className="px-3 py-2 font-medium">Progresso</th>
+							<th className="px-3 py-2 font-medium">{t("table.process")}</th>
+							<th className="px-3 py-2 font-medium">{t("table.state")}</th>
+							<th className="px-3 py-2 font-medium">{t("table.cpuTotal")}</th>
+							<th className="px-3 py-2 font-medium">{t("table.executed")}</th>
+							<th className="px-3 py-2 font-medium">{t("table.remaining")}</th>
+							<th className="px-3 py-2 font-medium">{t("table.progress")}</th>
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-border">
@@ -194,7 +196,7 @@ export function ExecutionTimeline({
 									className="px-3 py-6 text-center text-muted-foreground"
 									colSpan={6}
 								>
-									Execute uma simulação para visualizar os resultados.
+									{t("empty")}
 								</td>
 							</tr>
 						) : (
@@ -203,7 +205,8 @@ export function ExecutionTimeline({
 									processo.tempoCpu > 0
 										? Math.round((processo.tempoExec / processo.tempoCpu) * 100)
 										: 0;
-								const { label, className } = stateStyles[processo.estado];
+								const label = stateLabelMap[processo.estado];
+								const className = stateClassMap[processo.estado];
 								return (
 									<tr key={processo.id}>
 										<td className="px-3 py-3 font-semibold text-foreground">
@@ -216,9 +219,15 @@ export function ExecutionTimeline({
 												{label}
 											</span>
 										</td>
-										<td className="px-3 py-3">{processo.tempoCpu} q</td>
-										<td className="px-3 py-3">{processo.tempoExec} q</td>
-										<td className="px-3 py-3">{processo.tempoRestante} q</td>
+										<td className="px-3 py-3">
+											{processo.tempoCpu} {tControls("quantumUnit")}
+										</td>
+										<td className="px-3 py-3">
+											{processo.tempoExec} {tControls("quantumUnit")}
+										</td>
+										<td className="px-3 py-3">
+											{processo.tempoRestante} {tControls("quantumUnit")}
+										</td>
 										<td className="px-3 py-3">
 											<div className="h-2 w-full rounded-full bg-muted">
 												<div

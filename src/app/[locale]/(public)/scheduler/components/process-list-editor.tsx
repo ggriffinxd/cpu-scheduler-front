@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export interface SchedulerProcessInput {
 	id: number;
@@ -25,6 +26,8 @@ export function ProcessListEditor({
 }: ProcessListEditorProps) {
 	const [tempoCpu, setTempoCpu] = useState<number>(5);
 	const [prioridade, setPrioridade] = useState<number>(1);
+	const t = useTranslations("scheduler.processList");
+	const tControls = useTranslations("scheduler.controls");
 
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -42,10 +45,10 @@ export function ProcessListEditor({
 			<div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
 				<div>
 					<h2 className="text-lg font-semibold text-foreground">
-						Processos de Entrada
+						{t("title")}
 					</h2>
 					<p className="text-sm text-muted-foreground">
-						Informe o tempo de CPU necessário e a prioridade (1-5).
+						{t("subtitle")}
 					</p>
 				</div>
 				<div className="flex flex-wrap gap-2">
@@ -54,7 +57,7 @@ export function ProcessListEditor({
 						className="rounded-lg border border-border bg-secondary px-3 py-1.5 text-sm font-medium text-secondary-foreground transition hover:bg-secondary/80"
 						onClick={onReset}
 					>
-						Limpar lista
+						{t("actions.clear")}
 					</button>
 					{onSeed ? (
 						<button
@@ -62,7 +65,7 @@ export function ProcessListEditor({
 							className="rounded-lg border border-primary/40 bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary transition hover:bg-primary/15"
 							onClick={onSeed}
 						>
-							Carregar exemplo
+							{t("actions.seed")}
 						</button>
 					) : null}
 				</div>
@@ -74,7 +77,7 @@ export function ProcessListEditor({
 			>
 				<label className="flex flex-col gap-2">
 					<span className="text-sm font-medium text-muted-foreground">
-						Tempo de CPU (quantums)
+						{t("form.cpuLabel")}
 					</span>
 					<input
 						type="number"
@@ -88,7 +91,7 @@ export function ProcessListEditor({
 
 				<label className="flex flex-col gap-2">
 					<span className="text-sm font-medium text-muted-foreground">
-						Prioridade (1 = maior)
+						{t("form.priorityLabel")}
 					</span>
 					<input
 						type="number"
@@ -106,7 +109,7 @@ export function ProcessListEditor({
 						type="submit"
 						className="w-full rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 					>
-						Adicionar processo
+						{t("form.submit")}
 					</button>
 				</div>
 			</form>
@@ -115,10 +118,10 @@ export function ProcessListEditor({
 				<table className="min-w-full divide-y divide-border text-sm">
 					<thead>
 						<tr className="bg-muted/60 text-left text-xs uppercase tracking-wide text-muted-foreground">
-							<th className="px-3 py-2 font-medium">ID</th>
-							<th className="px-3 py-2 font-medium">Tempo CPU</th>
-							<th className="px-3 py-2 font-medium">Prioridade</th>
-							<th className="px-3 py-2 font-medium text-right">Ações</th>
+							<th className="px-3 py-2 font-medium">{t("table.id")}</th>
+							<th className="px-3 py-2 font-medium">{t("table.cpu")}</th>
+							<th className="px-3 py-2 font-medium">{t("table.priority")}</th>
+							<th className="px-3 py-2 font-medium text-right">{t("table.actions")}</th>
 						</tr>
 					</thead>
 					<tbody className="divide-y divide-border">
@@ -128,14 +131,16 @@ export function ProcessListEditor({
 									className="px-3 py-4 text-center text-muted-foreground"
 									colSpan={4}
 								>
-									Nenhum processo cadastrado.
+									{t("table.empty")}
 								</td>
 							</tr>
 						) : (
 							processes.map((processo) => (
 								<tr key={processo.id} className="text-foreground">
 									<td className="px-3 py-2 font-medium">P{processo.id}</td>
-									<td className="px-3 py-2">{processo.tempoCpu} q</td>
+									<td className="px-3 py-2">
+										{processo.tempoCpu} {tControls("quantumUnit")}
+									</td>
 									<td className="px-3 py-2">{processo.prioridade}</td>
 									<td className="px-3 py-2 text-right">
 										<button
@@ -143,7 +148,7 @@ export function ProcessListEditor({
 											className="rounded-full border border-border px-3 py-1 text-xs font-semibold text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
 											onClick={() => onRemove(processo.id)}
 										>
-											Remover
+											{t("table.remove")}
 										</button>
 									</td>
 								</tr>
