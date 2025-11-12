@@ -5,6 +5,7 @@ import { Escalonador } from "@/lib/scheduler/escalonador";
 import { SchedulerApp } from "@/lib/scheduler/mainApp";
 import type { ProcessParams, ProcessSnapshot } from "@/lib/types/scheduler";
 import { AlgorithmMenu, type SchedulerAlgorithmId } from "./components/algorithm-menu";
+import { SchedulerHeader } from "./components/header";
 import { ExecutionTimeline } from "./components/execution-timeline";
 import {
 	ProcessListEditor,
@@ -239,19 +240,19 @@ export default function SchedulerPage() {
 	return (
 		<div className="min-h-screen bg-background">
 			<div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8">
-				<header className="flex flex-col gap-4 text-foreground md:flex-row md:items-end md:justify-between">
-					<div>
-						<p className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary">
-							Simulador interativo
-						</p>
-						<h1 className="mt-3 text-3xl font-bold tracking-tight">
-							CPU Scheduler Playground
-						</h1>
-						<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-							Visualize os principais algoritmos de escalonamento em tempo real.
-							Monte sua fila de processos, configure quantum e acompanhe cada
-							quantum sendo executado.
-						</p>
+				<SchedulerHeader />
+				<header className="flex flex-col gap-6 text-foreground md:flex-row md:items-start md:justify-between">
+					<div className="space-y-4">
+						<div>
+							<h1 className="text-3xl font-bold tracking-tight">
+								CPU Scheduler Playground
+							</h1>
+							<p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+								Visualize os principais algoritmos de escalonamento em tempo real.
+								Monte sua fila de processos, configure quantum e acompanhe cada
+								quantum sendo executado.
+							</p>
+						</div>
 					</div>
 					<div className="rounded-xl border border-border bg-card/80 p-3 text-sm text-muted-foreground shadow-sm">
 						<p className="font-semibold text-foreground">Status da simulação</p>
