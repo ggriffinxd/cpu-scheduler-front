@@ -1,67 +1,21 @@
 "use client";
 
 import { motion, useAnimation } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
-
-/**
- * Componente BorderWaved - Cria um efeito de borda ondulada animada realista
- *
- * @example
- * // Uso básico sem animação
- * <BorderWaved>
- *   <div>Seu conteúdo aqui</div>
- * </BorderWaved>
- *
- * @example
- * // Com animação de onda realista
- * <BorderWaved animated={true}>
- *   <header>Seu header aqui</header>
- * </BorderWaved>
- *
- * @example
- * // Com borda preta
- * <BorderWaved
- *   animated={true}
- *   showBorder={true}
- *   borderColor="#000000"
- * >
- *   <div>Conteúdo com borda</div>
- * </BorderWaved>
- *
- * @example
- * // Borda mais escura da cor principal
- * <BorderWaved
- *   animated={true}
- *   showBorder={true}
- *   borderColor="#2f2044"
- *   waveFill="#7539db"
- * >
- *   <div>Conteúdo personalizado</div>
- * </BorderWaved>
- */
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface BorderWavedProps {
   children: React.ReactNode;
-  /** Altura da onda em classes Tailwind (ex: "h-14", "h-20") */
   waveHeight?: string;
-  /** Se deve animar a onda */
   animated?: boolean;
-  /** Duração da animação em segundos */
   animationDuration?: number;
-  /** Intensidade da animação (0-1) - controla amplitude da onda */
   animationIntensity?: number;
-  /** Cor de preenchimento da onda */
   waveFill?: string;
-  /** Se deve mostrar borda na onda */
   showBorder?: boolean;
-  /** Cor da borda da onda */
   borderColor?: string;
-  /** Largura da borda em pixels */
   borderWidth?: number;
-  /** Classes CSS adicionais para o container */
   className?: string;
-  /** Classes CSS adicionais para o SVG */
   svgClassName?: string;
+  extendBorder?: boolean;
 }
 
 export function BorderWaved({
@@ -70,29 +24,46 @@ export function BorderWaved({
   animated = false,
   animationDuration = 4,
   animationIntensity = 0.3,
-  waveFill = "var(--background)",
+  waveFill,
   showBorder = false,
   borderColor = "var(--border)",
   borderWidth = 2,
   className = "",
   svgClassName = "",
+  extendBorder = false,
 }: BorderWavedProps) {
+  const finalWaveFill =
+    waveFill || (extendBorder ? borderColor : "var(--background)");
   const controls = useAnimation();
   const [isVisible, setIsVisible] = useState(true);
+  const isMountedRef = useRef(true);
 
   useEffect(() => {
+    isMountedRef.current = true;
+
     const handleVisibilityChange = () => {
-      setIsVisible(!document.hidden);
+      if (isMountedRef.current) {
+        setIsVisible(!document.hidden);
+      }
     };
 
-    const handleFocus = () => setIsVisible(true);
-    const handleBlur = () => setIsVisible(false);
+    const handleFocus = () => {
+      if (isMountedRef.current) {
+        setIsVisible(true);
+      }
+    };
+    const handleBlur = () => {
+      if (isMountedRef.current) {
+        setIsVisible(false);
+      }
+    };
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("focus", handleFocus);
     window.addEventListener("blur", handleBlur);
 
     return () => {
+      isMountedRef.current = false;
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener("focus", handleFocus);
       window.removeEventListener("blur", handleBlur);
@@ -102,20 +73,17 @@ export function BorderWaved({
   const generateWavePath = useCallback(
     (phase: number = 0, intensity: number = animationIntensity) => {
       const baseY = 32;
-      const amplitude = 20 * intensity; // Amplitude maior para efeito mais visível
+      const amplitude = 20 * intensity;
 
-      // Cria pontos de onda usando função seno para movimento natural
       const points = [];
-      const numWaves = 3; // Número de ondas completas
-      const numPoints = 12; // Mais pontos para suavidade
+      const numWaves = 3;
+      const numPoints = 12;
 
       for (let i = 0; i <= numPoints; i++) {
         const x = (1440 / numPoints) * i;
-        // Onda senoidal com fase para movimento natural
         const waveY =
           Math.sin((i / numPoints) * Math.PI * 2 * numWaves + phase) *
           amplitude;
-        // Adiciona variação secundária para realismo
         const secondaryWave =
           Math.sin((i / numPoints) * Math.PI * 8 + phase * 2) *
           (amplitude * 0.3);
@@ -124,14 +92,12 @@ export function BorderWaved({
         points.push(`${x},${y}`);
       }
 
-      // Cria path suave usando curvas quadráticas
       let path = `M${points[0]}`;
 
       for (let i = 0; i < points.length - 1; i++) {
         const current = points[i].split(",").map(Number);
         const next = points[i + 1].split(",").map(Number);
 
-        // Ponto de controle para curva suave
         const cpX = current[0] + (next[0] - current[0]) * 0.5;
         const cpY = current[1] + (next[1] - current[1]) * 0.5;
 
@@ -144,24 +110,20 @@ export function BorderWaved({
     [animationIntensity]
   );
 
-  // Gera a borda da onda (ligeiramente acima da onda principal)
   const generateBorderPath = useCallback(
     (phase: number = 0, intensity: number = animationIntensity) => {
-      const baseY = 32 - borderWidth; // Borda fica acima da onda principal
-      const amplitude = 23 * intensity; // Mesmo amplitude da onda principal
+      const baseY = 32 - borderWidth;
+      const amplitude = 23 * intensity;
 
-      // Cria pontos de onda usando função seno para movimento natural
       const points = [];
-      const numWaves = 3; // Número de ondas completas
-      const numPoints = 12; // Mais pontos para suavidade
+      const numWaves = 3;
+      const numPoints = 12;
 
       for (let i = 0; i <= numPoints; i++) {
         const x = (1440 / numPoints) * i;
-        // Onda senoidal com fase para movimento natural
         const waveY =
           Math.sin((i / numPoints) * Math.PI * 2 * numWaves + phase) *
           amplitude;
-        // Adiciona variação secundária para realismo
         const secondaryWave =
           Math.sin((i / numPoints) * Math.PI * 8 + phase * 2) *
           (amplitude * 0.3);
@@ -170,30 +132,26 @@ export function BorderWaved({
         points.push(`${x},${y}`);
       }
 
-      // Cria path suave usando curvas quadráticas
       let path = `M${points[0]}`;
 
       for (let i = 0; i < points.length - 1; i++) {
         const current = points[i].split(",").map(Number);
         const next = points[i + 1].split(",").map(Number);
 
-        // Ponto de controle para curva suave
         const cpX = current[0] + (next[0] - current[0]) * 0.5;
         const cpY = current[1] + (next[1] - current[1]) * 0.5;
 
         path += ` Q${cpX},${cpY} ${next[0]},${next[1]}`;
       }
 
-      path += ` V${32 - borderWidth} H0 Z`; // Fecha no topo da borda
+      path += ` V${32 - borderWidth} H0 Z`;
       return path;
     },
     [animationIntensity, borderWidth]
   );
 
-  // Animação realista da onda que simula movimento da água
   useEffect(() => {
     if (!animated || !isVisible) {
-      // Quando não está animando ou página não está em foco, volta ao estado neutro
       controls.set({ d: generateWavePath(0, 0) });
       return;
     }
@@ -201,46 +159,45 @@ export function BorderWaved({
     const animateWave = async () => {
       const baseDuration = animationDuration;
 
-      while (animated && isVisible) {
-        // Ciclo completo de uma onda: subida → pico → descida → vale
+      while (animated && isVisible && isMountedRef.current) {
+        if (!isMountedRef.current) break;
 
-        // Fase 1: Onda começando a subir (intensidade crescente)
         await controls.start({
           d: generateWavePath(0, animationIntensity * 0.3),
           transition: { duration: baseDuration * 0.2, ease: "easeInOut" },
         });
 
-        // Fase 2: Onda no meio da subida (intensidade média)
+        if (!isMountedRef.current) break;
         await controls.start({
           d: generateWavePath(Math.PI * 0.25, animationIntensity * 0.6),
           transition: { duration: baseDuration * 0.15, ease: "easeInOut" },
         });
 
-        // Fase 3: Onda no pico (intensidade máxima)
+        if (!isMountedRef.current) break;
         await controls.start({
           d: generateWavePath(Math.PI * 0.5, animationIntensity),
           transition: { duration: baseDuration * 0.2, ease: "easeInOut" },
         });
 
-        // Fase 4: Onda começando a descer
+        if (!isMountedRef.current) break;
         await controls.start({
           d: generateWavePath(Math.PI * 0.75, animationIntensity * 0.8),
           transition: { duration: baseDuration * 0.15, ease: "easeInOut" },
         });
 
-        // Fase 5: Onda na descida (intensidade diminuindo)
+        if (!isMountedRef.current) break;
         await controls.start({
           d: generateWavePath(Math.PI, animationIntensity * 0.4),
           transition: { duration: baseDuration * 0.2, ease: "easeInOut" },
         });
 
-        // Fase 6: Onda no vale (intensidade mínima)
+        if (!isMountedRef.current) break;
         await controls.start({
           d: generateWavePath(Math.PI * 1.25, animationIntensity * 0.1),
           transition: { duration: baseDuration * 0.1, ease: "easeInOut" },
         });
 
-        // Fase 7: Onda voltando ao início do ciclo
+        if (!isMountedRef.current) break;
         await controls.start({
           d: generateWavePath(Math.PI * 1.5, animationIntensity * 0.2),
           transition: { duration: baseDuration * 0.1, ease: "easeInOut" },
@@ -260,10 +217,8 @@ export function BorderWaved({
 
   return (
     <div className={`relative ${className}`}>
-      {/* Conteúdo principal */}
       <div className="relative z-10">{children}</div>
 
-      {/* SVG da onda com animação realista */}
       <motion.svg
         aria-hidden="true"
         focusable="false"
@@ -277,7 +232,6 @@ export function BorderWaved({
         }}
         animate={controls}
       >
-        {/* Borda da onda (renderiza primeiro para ficar atrás) */}
         {showBorder && (
           <motion.path
             d={generateBorderPath(0, 0)}
@@ -286,10 +240,9 @@ export function BorderWaved({
           />
         )}
 
-        {/* Onda principal */}
         <motion.path
           d={generateWavePath(0, 0)}
-          fill={waveFill}
+          fill={finalWaveFill}
           animate={controls}
         />
       </motion.svg>
