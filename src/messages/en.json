@@ -38,6 +38,13 @@
       "educationalTimelineDescription": "Educational timeline display",
       "codeVisualizationDescription": "Source code visualization"
     },
+    "footer": {
+      "developedBy": "Developed by",
+      "carlosMiguel": "Carlos Miguel,",
+      "felipeSander": "Felipe Sander",
+      "gabrielAlmeida": "Gabriel Almeida",
+      "and": "&"
+    },
     "status": {
       "title": "Simulation status",
       "processing": "Processing...",

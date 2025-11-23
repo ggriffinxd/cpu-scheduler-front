@@ -37,6 +37,13 @@
       "multipleAlgorithmsDescription": "Múltiples algoritmos de planificación",
       "educationalTimelineDescription": "Visualización cronológica educativa",
       "codeVisualizationDescription": "Visualización de código fuente"
+    },
+    "footer": {
+      "developedBy": "Desarrollado por",
+      "carlosMiguel": "Carlos Miguel,",
+      "felipeSander": "Felipe Sander",
+      "gabrielAlmeida": "Gabriel Almeida",
+      "and": "&"
     }
   },
   "scheduler": {
