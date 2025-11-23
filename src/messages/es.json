@@ -1,7 +1,42 @@
 {
   "dashboard": {
     "header": {
-      "title": "Dashboard"
+      "title": "CPU Scheduler",
+      "subtitle": "Simulador CPU Scheduler",
+      "description": "Visualiza los principales algoritmos de planificación en tiempo real. Monta tu cola de procesos, configura el quantum y sigue cada ráfaga ejecutada.",
+      "button": {
+        "start": "Iniciar simulación",
+        "startLoading": "Iniciando simulación..."
+      }
+    },
+    "main": {
+      "title": "Experiencia de Aprendizaje Interactiva",
+      "subtitle": "Sumérgete profundamente en los conceptos de sistemas operativos con simulación práctica",
+      "features": {
+        "processCreation": "Creación interactiva de procesos",
+        "schedulingVisualization": "Visualización de planificación en tiempo real",
+        "performanceMetrics": "Análisis de métricas de rendimiento",
+        "multipleAlgorithms": "Múltiples algoritmos de planificación",
+        "educationalTimeline": "Visualización cronológica educativa",
+        "codeVisualization": "Visualización de código fuente",
+        "learnMore": "Saber más",
+        "processCreationDescription": "Creación interactiva de procesos",
+        "schedulingVisualizationDescription": "Visualización de planificación en tiempo real",
+        "performanceMetricsDescription": "Análisis de métricas de rendimiento",
+        "multipleAlgorithmsDescription": "Múltiples algoritmos de planificación",
+        "educationalTimelineDescription": "Visualización cronológica educativa",
+        "codeVisualizationDescription": "Visualización de código fuente"
+      },
+      "cta": "Comenzar a explorar",
+      "readyToStart": "¿Listo para comenzar su viaje?",
+      "description": "Explore los fundamentos de los sistemas operativos a través de visualizaciones interactivas y algoritmos de planificación en tiempo real.",
+      "goToPlayground": "Ir al Playground",
+      "processCreationDescription": "Creación interactiva de procesos",
+      "schedulingVisualizationDescription": "Visualización de planificación en tiempo real",
+      "performanceMetricsDescription": "Análisis de métricas de rendimiento",
+      "multipleAlgorithmsDescription": "Múltiples algoritmos de planificación",
+      "educationalTimelineDescription": "Visualización cronológica educativa",
+      "codeVisualizationDescription": "Visualización de código fuente"
     }
   },
   "scheduler": {

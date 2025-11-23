@@ -1,7 +1,49 @@
 {
   "dashboard": {
     "header": {
-      "title": "Dashboard"
+      "title": "CPU Scheduler",
+      "subtitle": "Simulador CPU Scheduler",
+      "description": "Visualize os principais algoritmos de escalonamento em tempo real. Monte sua fila de processos, configure quantum e acompanhe cada quantum sendo executado.",
+      "button": {
+        "start": "Iniciar simulação",
+        "startLoading": "Iniciando simulação..."
+      }
+    },
+    "main": {
+      "title": "Experiência de Aprendizado Interativo",
+      "subtitle": "Mergulhe profundamente nos conceitos de sistemas operacionais com simulação prática",
+      "features": {
+        "processCreation": "Criação interativa de processos",
+        "schedulingVisualization": "Visualização de escalonamento em tempo real",
+        "performanceMetrics": "Análise de métricas de performance",
+        "multipleAlgorithms": "Múltiplos algoritmos de escalonamento",
+        "educationalTimeline": "Exibição cronológica educacional",
+        "codeVisualization": "Visualização de código fonte",
+        "learnMore": "Saiba mais",
+        "processCreationDescription": "Criação interativa de processos",
+        "schedulingVisualizationDescription": "Visualização de escalonamento em tempo real",
+        "performanceMetricsDescription": "Análise de métricas de performance",
+        "multipleAlgorithmsDescription": "Múltiplos algoritmos de escalonamento",
+        "educationalTimelineDescription": "Exibição cronológica educacional",
+        "codeVisualizationDescription": "Visualização de código fonte"
+      },
+      "cta": "Começar a explorar",
+      "readyToStart": "Pronto para começar sua jornada?",
+      "description": "Explore os fundamentos dos sistemas operacionais através de visualizações interativas e algoritmos de escalonamento em tempo real.",
+      "goToPlayground": "Ir para o Playground",
+      "processCreationDescription": "Criação interativa de processos",
+      "schedulingVisualizationDescription": "Visualização de escalonamento em tempo real",
+      "performanceMetricsDescription": "Análise de métricas de performance",
+      "multipleAlgorithmsDescription": "Múltiplos algoritmos de escalonamento",
+      "educationalTimelineDescription": "Exibição cronológica educacional",
+      "codeVisualizationDescription": "Visualização de código fonte"
+    },
+    "footer": {
+      "developedBy": "Desenvolvido por",
+      "carlosMiguel": "Carlos Miguel",
+      "felipeSander": "Felipe Sander",
+      "gabrielAlmeida": "Gabriel Almeida",
+      "and": "&"
     }
   },
   "scheduler": {

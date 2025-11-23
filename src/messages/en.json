@@ -1,19 +1,42 @@
 {
   "dashboard": {
     "header": {
-      "title": "Dashboard"
-    }
-  },
-  "scheduler": {
-    "header": {
       "title": "CPU Scheduler",
-      "subtitle": "Playground"
-    },
-    "page": {
-      "title": "CPU Scheduler Playground",
+      "subtitle": "CPU Scheduler Simulator",
       "description": "Visualize the main CPU scheduling algorithms in real time. Build your ready queue, configure the quantum and follow each executed time slice.",
-      "simulateHeading": "Run {algorithm}",
-      "simulateDescription": "Data is processed immediately and the history is stored for time navigation."
+      "button": {
+        "start": "Start simulation",
+        "startLoading": "Starting simulation..."
+      }
+    },
+    "main": {
+      "title": "Interactive Learning Experience",
+      "subtitle": "Dive deep into operating system concepts with hands-on simulation",
+      "features": {
+        "processCreation": "Interactive process creation",
+        "schedulingVisualization": "Real-time scheduling visualization",
+        "performanceMetrics": "Performance metrics analysis",
+        "multipleAlgorithms": "Multiple scheduling algorithms",
+        "educationalTimeline": "Educational timeline display",
+        "codeVisualization": "Source code visualization",
+        "learnMore": "Learn more",
+        "processCreationDescription": "Create processes interactively",
+        "schedulingVisualizationDescription": "Visualize scheduling in real time",
+        "performanceMetricsDescription": "Analyze performance metrics",
+        "multipleAlgorithmsDescription": "Multiple scheduling algorithms",
+        "educationalTimelineDescription": "Educational timeline display",
+        "codeVisualizationDescription": "Source code visualization"
+      },
+      "cta": "Start exploring",
+      "readyToStart": "Ready to start your journey?",
+      "description": "Explore the fundamentals of operating systems through interactive visualizations and real-time scheduling algorithms.",
+      "goToPlayground": "Go to Playground",
+      "processCreationDescription": "Create processes interactively",
+      "schedulingVisualizationDescription": "Visualize scheduling in real time",
+      "performanceMetricsDescription": "Analyze performance metrics",
+      "multipleAlgorithmsDescription": "Multiple scheduling algorithms",
+      "educationalTimelineDescription": "Educational timeline display",
+      "codeVisualizationDescription": "Source code visualization"
     },
     "status": {
       "title": "Simulation status",
