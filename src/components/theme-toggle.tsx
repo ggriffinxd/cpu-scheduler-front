@@ -27,7 +27,7 @@ export function ThemeToggle() {
   const isDark = theme === "dark";
 
   return (
-    <div className="flex items-center space-x-2 text-muted-foreground">
+    <div className="flex items-center space-x-2 text-foreground">
       <Sun className="h-4 w-4" aria-hidden="true" />
       <Switch
         checked={isDark}
