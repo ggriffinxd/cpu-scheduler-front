@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import { ArrowLeft, Home } from "lucide-react";
+import { Link } from "@/i18n/routing";
 
 import { Escalonador } from "@/lib/scheduler/escalonador";
 import { SchedulerApp } from "@/lib/scheduler/mainApp";
@@ -252,6 +254,15 @@ export default function SchedulerPage() {
 			<div className="flex w-full flex-col gap-8 px-4 py-10 sm:px-6 lg:px-8">
 				<SchedulerHeader />
 				<div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
+					{/* Botão de voltar ao Dashboard */}
+					<Link
+						href="/dashboard"
+						className="group inline-flex items-center gap-2 rounded-lg border border-border bg-card/80 px-4 py-2 text-sm font-medium text-foreground transition-all hover:bg-card hover:shadow-md hover:scale-105 w-fit"
+					>
+						<ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+						<span>{tPage("backToDashboard")}</span>
+					</Link>
+
 					<header className="flex flex-col gap-6 text-foreground md:flex-row md:items-start md:justify-between">
 					<div className="space-y-4">
 						<div>

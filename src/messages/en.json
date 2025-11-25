@@ -174,7 +174,8 @@
       "title": "CPU Scheduler Playground",
       "description": "Visualize the main scheduling algorithms in real time. Set up your process queue, configure quantum, and watch each quantum being executed.",
       "simulateHeading": "Simulate {algorithm}",
-      "simulateDescription": "The data is processed immediately and the history is saved for timeline navigation."
+      "simulateDescription": "The data is processed immediately and the history is saved for timeline navigation.",
+      "backToDashboard": "Back to Dashboard"
     },
     "status": {
       "title": "Simulation status",
@@ -288,11 +289,38 @@
         "progress": "Progress"
       },
       "empty": "Run a simulation to visualize the results.",
+      "emptyDescription": "Run a simulation to visualize the processing",
       "states": {
         "ready": "Ready",
         "running": "Running",
         "blocked": "Blocked",
         "finished": "Finished"
+      },
+      "computerView": {
+        "cpuUsage": "CPU Usage",
+        "stepOf": "Step {current} of {total}",
+        "processing": "Processing P{id}",
+        "executing": "P{id} executing",
+        "cpuIdle": "CPU idle",
+        "processingDetails": "Processing P{id} - {executed}q / {total}q",
+        "waitingQueue": "Waiting for processes in queue",
+        "priority": "Priority",
+        "cpuTime": "CPU Time",
+        "progress": "Progress",
+        "cpuWaiting": "CPU waiting",
+        "noProcessRunning": "No process running",
+        "remaining": "remaining",
+        "avgWaitTime": "Average Wait Time",
+        "avgTurnaroundTime": "Average Turnaround Time",
+        "activeProcesses": "Active Processes",
+        "finishedProcesses": "Finished Processes",
+        "readyQueue": "Ready Queue",
+        "noProcessInQueue": "No processes in ready queue",
+        "priorityLabel": "Priority: {priority}",
+        "remainingLabel": "{remaining}q remaining",
+        "ganttTitle": "Gantt Chart - Execution Timeline",
+        "progressEvolution": "Progress Evolution",
+        "processStatus": "Process Status"
       }
     }
   }

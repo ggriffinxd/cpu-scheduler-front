@@ -44,6 +44,7 @@ export function ComputerView({
 }: ComputerViewProps) {
 	const t = useTranslations("scheduler.timeline");
 	const tControls = useTranslations("scheduler.controls");
+	const tComputer = useTranslations("scheduler.timeline.computerView");
 	const currentSnapshot = steps[currentStep] ?? [];
 	const previousSnapshot = currentStep > 0 ? steps[currentStep - 1] ?? [] : [];
 
@@ -154,7 +155,7 @@ export function ComputerView({
 						{t("empty")}
 					</h3>
 					<p className="text-sm text-muted-foreground">
-						Execute uma simulação para visualizar o processamento
+						{t("emptyDescription")}
 					</p>
 				</div>
 			</div>
@@ -333,7 +334,7 @@ export function ComputerView({
 												⚡
 											</motion.div>
 											<h3 className="text-2xl font-bold text-emerald-400 mb-2">
-												Processando P{executingProcess.id}
+												{tComputer("processing", { id: executingProcess.id })}
 											</h3>
 											<div className="text-sm text-slate-400 mb-4">
 												{stateLabelMap.executando}
@@ -366,7 +367,7 @@ export function ComputerView({
 											
 											<div className="flex justify-between text-xs text-slate-500 mt-2">
 												<span>{executingProcess.tempoExec}q / {executingProcess.tempoCpu}q</span>
-												<span>{executingProcess.tempoRestante}q restante</span>
+												<span>{executingProcess.tempoRestante}q {tComputer("remaining")}</span>
 											</div>
 										</div>
 									</div>
@@ -394,19 +395,19 @@ export function ComputerView({
 								{/* Informações do Processo */}
 								<div className="grid grid-cols-3 gap-4 w-full max-w-md">
 									<div className="bg-muted/40 rounded-lg p-3 text-center border border-border">
-										<div className="text-xs text-muted-foreground mb-1">Prioridade</div>
+										<div className="text-xs text-muted-foreground mb-1">{tComputer("priority")}</div>
 										<div className="text-lg font-bold text-foreground">
 											{executingProcess.prioridade}
 										</div>
 									</div>
 									<div className="bg-muted/40 rounded-lg p-3 text-center border border-border">
-										<div className="text-xs text-muted-foreground mb-1">Tempo CPU</div>
+										<div className="text-xs text-muted-foreground mb-1">{tComputer("cpuTime")}</div>
 										<div className="text-lg font-bold text-foreground">
 											{executingProcess.tempoCpu}q
 										</div>
 									</div>
 									<div className="bg-muted/40 rounded-lg p-3 text-center border border-border">
-										<div className="text-xs text-muted-foreground mb-1">Progresso</div>
+										<div className="text-xs text-muted-foreground mb-1">{tComputer("progress")}</div>
 										<div className="text-lg font-bold text-emerald-500">
 											{Math.round((executingProcess.tempoExec / executingProcess.tempoCpu) * 100)}%
 										</div>
@@ -423,10 +424,10 @@ export function ComputerView({
 							>
 								<div className="text-6xl mb-4">💤</div>
 								<h3 className="text-xl font-semibold text-muted-foreground">
-									CPU em espera
+									{tComputer("cpuWaiting")}
 								</h3>
 								<p className="text-sm text-muted-foreground mt-2">
-									Nenhum processo em execução
+									{tComputer("noProcessRunning")}
 								</p>
 							</motion.div>
 						)}
@@ -514,10 +515,10 @@ export function ComputerView({
 				<div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
 					<div className="flex items-center justify-between mb-3">
 						<h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-							Uso da CPU
+							{tComputer("cpuUsage")}
 						</h3>
 						<span className="text-xs text-muted-foreground">
-							Passo {currentStep + 1} de {steps.length}
+							{tComputer("stepOf", { current: currentStep + 1, total: steps.length })}
 						</span>
 					</div>
 					<div className="space-y-2">
@@ -555,7 +556,7 @@ export function ComputerView({
 									)}
 								</motion.div>
 								<div className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-foreground">
-									{executingProcess ? `P${executingProcess.id} executando` : "CPU ociosa"}
+									{executingProcess ? tComputer("executing", { id: executingProcess.id }) : tComputer("cpuIdle")}
 								</div>
 							</div>
 							<div className="text-sm font-bold text-foreground min-w-[3rem] text-right">
@@ -564,8 +565,12 @@ export function ComputerView({
 						</div>
 						<div className="text-xs text-muted-foreground">
 							{executingProcess
-								? `Processando P${executingProcess.id} - ${executingProcess.tempoExec}q / ${executingProcess.tempoCpu}q`
-								: "Aguardando processos na fila"}
+								? tComputer("processingDetails", {
+										id: executingProcess.id,
+										executed: executingProcess.tempoExec,
+										total: executingProcess.tempoCpu,
+									})
+								: tComputer("waitingQueue")}
 						</div>
 					</div>
 				</div>
@@ -579,7 +584,7 @@ export function ComputerView({
 						animate={{ opacity: 1, y: 0 }}
 						className="rounded-xl border border-border bg-card p-4 shadow-sm"
 					>
-						<div className="text-xs text-muted-foreground mb-1">Tempo Médio de Espera</div>
+						<div className="text-xs text-muted-foreground mb-1">{tComputer("avgWaitTime")}</div>
 						<div className="text-2xl font-bold text-foreground">
 							{metrics.avgWaitTime.toFixed(1)}q
 						</div>
@@ -590,7 +595,7 @@ export function ComputerView({
 						transition={{ delay: 0.1 }}
 						className="rounded-xl border border-border bg-card p-4 shadow-sm"
 					>
-						<div className="text-xs text-muted-foreground mb-1">Tempo Médio de Retorno</div>
+						<div className="text-xs text-muted-foreground mb-1">{tComputer("avgTurnaroundTime")}</div>
 						<div className="text-2xl font-bold text-foreground">
 							{metrics.avgTurnaroundTime.toFixed(1)}q
 						</div>
@@ -601,7 +606,7 @@ export function ComputerView({
 						transition={{ delay: 0.2 }}
 						className="rounded-xl border border-border bg-card p-4 shadow-sm"
 					>
-						<div className="text-xs text-muted-foreground mb-1">Processos Ativos</div>
+						<div className="text-xs text-muted-foreground mb-1">{tComputer("activeProcesses")}</div>
 						<div className="text-2xl font-bold text-emerald-500">
 							{currentSnapshot.filter((p) => p.estado === "executando").length}
 						</div>
@@ -612,7 +617,7 @@ export function ComputerView({
 						transition={{ delay: 0.3 }}
 						className="rounded-xl border border-border bg-card p-4 shadow-sm"
 					>
-						<div className="text-xs text-muted-foreground mb-1">Processos Finalizados</div>
+						<div className="text-xs text-muted-foreground mb-1">{tComputer("finishedProcesses")}</div>
 						<div className="text-2xl font-bold text-slate-500">
 							{currentSnapshot.filter((p) => p.estado === "finalizado").length}
 						</div>
@@ -624,12 +629,12 @@ export function ComputerView({
 			{readyQueue.length > 0 && (
 				<div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
 					<h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-4">
-						Fila de Prontos
+						{tComputer("readyQueue")}
 					</h3>
 					<div className="flex flex-wrap gap-3">
 						{readyQueue.length === 0 ? (
 							<div className="text-sm text-muted-foreground italic">
-								Nenhum processo na fila de prontos
+								{tComputer("noProcessInQueue")}
 							</div>
 						) : (
 							readyQueue.map((processo, index) => {
@@ -660,13 +665,13 @@ export function ComputerView({
 										</motion.span>
 										<div>
 											<div className="font-semibold text-foreground">P{processo.id}</div>
-											<div className="text-xs text-muted-foreground">
-												Prioridade: {processo.prioridade}
-											</div>
-										</div>
-										<div className="ml-2 text-xs text-muted-foreground">
-											{processo.tempoRestante}q restante
-										</div>
+									<div className="text-xs text-muted-foreground">
+										{tComputer("priorityLabel", { priority: processo.prioridade })}
+									</div>
+								</div>
+								<div className="ml-2 text-xs text-muted-foreground">
+									{tComputer("remainingLabel", { remaining: processo.tempoRestante })}
+								</div>
 										{isNew && (
 											<motion.div
 												initial={{ scale: 0 }}
@@ -687,7 +692,7 @@ export function ComputerView({
 			{steps.length > 0 && (
 				<div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
 					<h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-4">
-						Diagrama de Gantt - Timeline de Execução
+						{tComputer("ganttTitle")}
 					</h3>
 					<div className="overflow-x-auto">
 						<div className="min-w-full space-y-2">
@@ -783,19 +788,19 @@ export function ComputerView({
 					<div className="flex flex-wrap gap-4 mt-4 text-xs">
 						<div className="flex items-center gap-2">
 							<div className="w-4 h-4 rounded bg-emerald-500"></div>
-							<span className="text-muted-foreground">Executando</span>
+							<span className="text-muted-foreground">{t("states.running")}</span>
 						</div>
 						<div className="flex items-center gap-2">
 							<div className="w-4 h-4 rounded bg-amber-500"></div>
-							<span className="text-muted-foreground">Pronto</span>
+							<span className="text-muted-foreground">{t("states.ready")}</span>
 						</div>
 						<div className="flex items-center gap-2">
 							<div className="w-4 h-4 rounded bg-rose-500"></div>
-							<span className="text-muted-foreground">Bloqueado</span>
+							<span className="text-muted-foreground">{t("states.blocked")}</span>
 						</div>
 						<div className="flex items-center gap-2">
 							<div className="w-4 h-4 rounded bg-slate-500"></div>
-							<span className="text-muted-foreground">Finalizado</span>
+							<span className="text-muted-foreground">{t("states.finished")}</span>
 						</div>
 					</div>
 				</div>
@@ -805,7 +810,7 @@ export function ComputerView({
 			{steps.length > 1 && (
 				<div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
 					<h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-4">
-						Evolução do Progresso
+						{tComputer("progressEvolution")}
 					</h3>
 					<div className="space-y-4">
 						{currentSnapshot.map((proc) => {
@@ -861,7 +866,7 @@ export function ComputerView({
 			{/* Lista de Processos em Formato de Tabela */}
 			<div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
 				<h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground mb-4">
-					Status dos Processos
+					{tComputer("processStatus")}
 				</h3>
 				<div className="overflow-x-auto">
 					<table className="min-w-full divide-y divide-border text-sm">

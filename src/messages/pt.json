@@ -55,7 +55,8 @@
       "title": "CPU Scheduler Playground",
       "description": "Visualize os principais algoritmos de escalonamento em tempo real. Monte sua fila de processos, configure quantum e acompanhe cada quantum sendo executado.",
       "simulateHeading": "Simular {algorithm}",
-      "simulateDescription": "Os dados são processados imediatamente e o histórico é salvo para navegação temporal."
+      "simulateDescription": "Os dados são processados imediatamente e o histórico é salvo para navegação temporal.",
+      "backToDashboard": "Voltar ao Dashboard"
     },
     "status": {
       "title": "Status da simulação",
@@ -169,11 +170,38 @@
         "progress": "Progresso"
       },
       "empty": "Execute uma simulação para visualizar os resultados.",
+      "emptyDescription": "Execute uma simulação para visualizar o processamento",
       "states": {
         "ready": "Pronto",
         "running": "Executando",
         "blocked": "Bloqueado",
         "finished": "Finalizado"
+      },
+      "computerView": {
+        "cpuUsage": "Uso da CPU",
+        "stepOf": "Passo {current} de {total}",
+        "processing": "Processando P{id}",
+        "executing": "P{id} executando",
+        "cpuIdle": "CPU ociosa",
+        "processingDetails": "Processando P{id} - {executed}q / {total}q",
+        "waitingQueue": "Aguardando processos na fila",
+        "priority": "Prioridade",
+        "cpuTime": "Tempo CPU",
+        "progress": "Progresso",
+        "cpuWaiting": "CPU em espera",
+        "noProcessRunning": "Nenhum processo em execução",
+        "remaining": "restante",
+        "avgWaitTime": "Tempo Médio de Espera",
+        "avgTurnaroundTime": "Tempo Médio de Retorno",
+        "activeProcesses": "Processos Ativos",
+        "finishedProcesses": "Processos Finalizados",
+        "readyQueue": "Fila de Prontos",
+        "noProcessInQueue": "Nenhum processo na fila de prontos",
+        "priorityLabel": "Prioridade: {priority}",
+        "remainingLabel": "{remaining}q restante",
+        "ganttTitle": "Diagrama de Gantt - Timeline de Execução",
+        "progressEvolution": "Evolução do Progresso",
+        "processStatus": "Status dos Processos"
       }
     }
   }
