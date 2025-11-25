@@ -13,6 +13,7 @@ import {
 } from "./components/algorithm-menu";
 import { SchedulerHeader } from "./components/header";
 import { ExecutionTimeline } from "./components/execution-timeline";
+import { ComputerView } from "./components/computer-view";
 import {
 	ProcessListEditor,
 	type SchedulerProcessInput,
@@ -363,7 +364,7 @@ export default function SchedulerPage() {
 						</div>
 					</section>
 
-					<ExecutionTimeline
+					<ComputerView
 						steps={steps}
 						currentStep={currentStep}
 						onStepChange={goToStep}
