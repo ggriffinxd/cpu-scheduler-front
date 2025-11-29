@@ -9,8 +9,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LanguageToggle } from "@/components/language-toggle";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { useTranslations } from "next-intl";
 
 export function MobileMenu() {
+  const t = useTranslations("mobileMenu");
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex h-8 w-10 items-center justify-center rounded-md border border-everwhite cursor-pointer bg-transparent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
@@ -19,7 +22,7 @@ export function MobileMenu() {
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuItem className="p-3 cursor-pointer">
           <div className="flex items-center justify-between w-full">
-            <span className="text-sm text-popover-foreground">'null'</span>
+            <span className="text-sm text-popover-foreground">{t("theme")}</span>
             <ThemeToggle />
           </div>
         </DropdownMenuItem>
@@ -30,7 +33,7 @@ export function MobileMenu() {
           }}
         >
           <div className="flex items-center justify-between w-full">
-            <span className="text-sm text-popover-foreground">'null'</span>
+            <span className="text-sm text-popover-foreground">{t("language")}</span>
             <LanguageToggle />
           </div>
         </DropdownMenuItem>

@@ -1,4 +1,8 @@
 {
+  "mobileMenu": {
+    "theme": "Theme",
+    "language": "Language"
+  },
   "dashboard": {
     "header": {
       "title": "CPU Scheduler",
